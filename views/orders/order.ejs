@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Orders</title>
+    </head>
+    <body>
+        <%- include('../partials/navbar') %>
+        <h1>Orders</h1>
+
+        <% if (orders && orders.length > 0) { %>
+            <ul>
+            <% orders.forEach(order => { %>
+                <li>
+                <a href="/orders/<%= order.id %>">Order #<%= order.id %></a> - Total: <%= order.total %>
+                </li>
+            <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No orders yet.</p>
+        <% } %>
+    </body>
+</html>

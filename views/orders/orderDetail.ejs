@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Order Detail</title>
+    </head>
+    <body>
+        <%- include('../partials/navbar') %>
+        <h1>Order Detail</h1>
+
+        <% if (order) { %>
+            <p><strong>ID:</strong> <%= order.id %></p>
+            <p><strong>User:</strong> <%= order.User.email %></p>
+            <h3>Items:</h3>
+            <ul>
+            <% order.OrderItems.forEach(item => { %>
+                <li><%= item.Animal.name %> from <%= item.Animal.Farm.name %></li>
+            <% }) %>
+            </ul>
+        <% } else { %>
+            <p>Order not found.</p>
+        <% } %>
+    </body>
+</html>

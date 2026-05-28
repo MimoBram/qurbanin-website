@@ -1,15 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const orderController = require('../controllers/orderController');
-const { isLoggedIn, isAdmin } = require('../middlewares/auth');
+const OrderController = require('../controllers/orderController');
 
-// pembeli — buat & lihat order sendiri
-router.get('/', isLoggedIn, orderController.index);
-router.get('/:id', isLoggedIn, orderController.detail);
-router.post('/', isLoggedIn, orderController.create);
-
-// admin only — konfirmasi & cancel order
-router.put('/:id', isAdmin, orderController.update);
-router.delete('/:id', isAdmin, orderController.destroy);
+router.get('/', OrderController.index);
+router.get('/:id', OrderController.detail);
 
 module.exports = router;

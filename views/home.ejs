@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Home - QurbanIn</title>
+    </head>
+    <body>
+        <%- include('./partials/navbar') %>
+
+        <h1>Selamat datang di QurbanIn</h1>
+        <p>Ini adalah halaman utama setelah login/register.</p>
+
+        <% if (user) { %>
+            <p>Halo, <%= user.email %>! Role kamu: <%= user.role %></p>
+        <% } else { %>
+            <p>Silakan <a href="/login">Login</a> atau <a href="/register">Register</a> untuk mulai.</p>
+        <% } %>
+    </body>
+</html>

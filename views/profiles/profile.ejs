@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Profile</title>
+    </head>
+    <body>
+        <%- include('partials/navbar') %>
+
+        <h1>User Profile</h1>
+
+        <% if (user) { %>
+            <p><strong>ID:</strong> <%= user.id %></p>
+            <p><strong>Email:</strong> <%= user.email %></p>
+            <p><strong>Role:</strong> <%= user.role %></p>
+        <% } else { %>
+            <p>No user logged in.</p>
+        <% } %>
+    </body>
+</html>

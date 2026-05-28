@@ -1,13 +1,12 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const authController = require("../controllers/authController");
-const { isGuest, isLoggedIn } = require("../middlewares/auth");
+const AuthController = require('../controllers/authController');
 
-router.get("/", authController.landingPage);
-router.get("/register", isGuest, authController.registerPage);
-router.post("/register", isGuest, authController.register);
-router.get("/login", isGuest, authController.loginPage);
-router.post("/login", isGuest, authController.login);
-router.get("/logout", isLoggedIn, authController.logout);
+router.get('/', AuthController.showLogin); // landing bisa diarahkan ke login
+router.get('/register', AuthController.showRegister);
+router.post('/register', AuthController.register);
+router.get('/login', AuthController.showLogin);
+router.post('/login', AuthController.login);
+router.get('/logout', AuthController.logout);
 
 module.exports = router;

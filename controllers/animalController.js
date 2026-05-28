@@ -5,7 +5,7 @@ class AnimalController {
     static async catalog(req, res) {
         try {
             const animals = await Animal.findAll({ include: Farm });
-            res.render('/animals/index', { user: req.user, animals, errors: [] });
+            res.render('animals/animal', { user: req.session.user || null, animals, errors: [] });
         } catch (err) {
             res.send(err.message);
         }
@@ -13,24 +13,24 @@ class AnimalController {
 
     static async detail(req, res) {
         try {
-            const animals = Animal.findByPk(req.params.id, { include: Farm });
-            res.render('animals/detail', { user: req.user, animals, errors: [] });
+            const animals = await Animal.findByPk(req.params.id, { include: Farm });
+            res.render('animalDetail', { user: req.session.user, animals, errors: [] });
         } catch (err) {
             res.send(err.message);
         }
     }
     
     static async showForm(req, res) {
-        res.render('/animals/form', { user: req.user, animal: null, mode: "add", errors: [] });
+        res.render('animalForm', { user: req.session.user, animal: null, mode: "add", errors: [] });
     }
 
-    static async add(res, req) {
+    static async add(req, res) {
         try {
             const { name, type, weight, price, farmId } = req.body;
             await Animal.create({ name, type, weight, price, farmId: farmId });
             res.redirect('/animals');
         } catch (err) {
-            res.render('/animals/forms', { user: req.user, animal: null, mode: 'add', errors: err.message });
+            res.render('animalForm', { user: req.session.user, animal: null, mode: 'add', errors: [{ message: err.message }] });
         }
     } 
 }
