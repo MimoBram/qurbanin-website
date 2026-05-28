@@ -1,0 +1,41 @@
+const { use } = require('react');
+const { User } = require('../models');
+const bcrypt = require('bcryptjs');
+const { where } = require('sequelize');
+
+class AuthController {
+    static async showRegister(req, res) {
+        res.render('auth/register', { user: null, errors: [] });
+    }
+
+    static async register(req, res) {
+        try {
+            const { email, password, role } = req.body;
+            const hashed = bcrypt.hashSync(password, 10);
+            await User.create({ email, password: hashed, role });
+            res.redirect('/login');
+        } catch (err) {
+            res.send('/auth/register', { user: null, errors: err.errors || [{ message: err.message }] });
+        }
+    }
+
+    static async showLogin(req, res) {
+        res.render('auth/login', { user: null, errors: [] });
+    }
+
+    static async login(req, res) {
+        try {
+            const { email, password } = req.body;
+            const user = await User.findOne({ where: {email} });
+            if (user && bcrypt.compareSync(password, user.password)) {
+                res.redirect('/catalog');
+            } else {
+                res.render('/auth/login', { user: null, errors: [{ message: 'Invalid email or password'}] });
+            }
+        } catch (err) {
+            res.render('/auth/login', { user: null, errors: [{ message: err.message }] });
+        }
+    }
+}
+
+module.exports = AuthController;
