@@ -10,6 +10,7 @@ const farmRouter = require("./routes/farm");
 const orderRouter = require("./routes/order");
 const profileRouter = require("./routes/profile");
 const homeRouter = require('./routes/home');
+const aboutRouter = require('./routes/about');
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +35,7 @@ app.use("/animals", animalRouter);
 app.use("/farms", farmRouter);
 app.use("/orders", orderRouter);
 app.use('/home', homeRouter);
+app.use('/about', aboutRouter);
 
 app.use((req, res) => {
   res.status(404).render("404", { 
