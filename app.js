@@ -1,15 +1,23 @@
-const express = require('express');
-const app = express();
-const router = require('./routes/router');
+// npx sequelize-cli model:generate --name User --attributes email:string,password:string,role:string
+// npx sequelize-cli model:generate --name UserProfile --attributes fullName:string,phone:string,address:string
+// npx sequelize-cli model:generate --name Farm --attributes name:string,location:string,description:string
+// npx sequelize-cli model:generate --name Animal --attributes name:string,type:string,weight:integer,age:integer,price:integer,status:string,imageUrl:string
+// npx sequelize-cli model:generate --name OrderItem --attributes price:integer
+// npx sequelize-cli model:generate --name Order --attributes totalPrice:integer,status:string,orderDate:integer
+// fk userId, orderId, farmId, animalId
 
-app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+const express = require('express')
+const app = express()
+const router = require('./routes/router')
 
-app.use('/', router);
+app.set('view engine', 'ejs')
+app.set('views', __dirname + '/views')
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`QurbanIn running on http://localhost:${port}`)
-});
+app.use('/', router)
+
+const PORT = 3000
+app.listen(PORT, () => {
+  console.log(`QurbanIn running on http://localhost:${PORT}`)
+})
