@@ -1,7 +1,5 @@
-const { use } = require('react');
 const { User } = require('../models');
 const bcrypt = require('bcryptjs');
-const { where } = require('sequelize');
 
 class AuthController {
     static async showRegister(req, res) {
