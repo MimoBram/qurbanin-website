@@ -36,6 +36,7 @@ app.use("/farms", farmRouter);
 app.use("/orders", orderRouter);
 app.use('/home', homeRouter);
 app.use('/about', aboutRouter);
+app.use('/profile', profileRouter);
 
 app.use((req, res) => {
   res.status(404).render("404", { 

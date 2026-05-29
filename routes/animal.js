@@ -6,5 +6,8 @@ router.get('/', AnimalController.catalog);
 router.get('/:id', AnimalController.detail);
 router.get('/add', AnimalController.showForm);
 router.post('/add', AnimalController.add);
+router.get('/:id/edit', AnimalController.showEditForm);
+router.post('/:id/edit', AnimalController.update);
+router.post('/:id/delete', AnimalController.delete);
 
 module.exports = router;

@@ -1,25 +1,53 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Farms Catalog</title>
-    </head>
-    <body>
-        <%- include('../partials/navbar') %>
+<html lang="id">
+<head><%- include('../partials/head') %></head>
+<body>
+  <%- include('../partials/navbar') %>
+  <div class="container" style="padding-top:36px;padding-bottom:60px">
 
-        <h1>Farms Catalog</h1>
-
-        <% if (farms && farms.length > 0) { %>
-            <ul>
-            <% farms.forEach(farm => { %>
-                <li>
-                <strong><%= farm.name %></strong>  
-                (ID: <%= farm.id %>)  
-                - Location: <%= farm.location %>
-                </li>
-            <% }) %>
-            </ul>
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px">
+      <div>
+        <% if (typeof user !== 'undefined' && user && user.role === 'admin') { %>
+          <h1>Semua Farm</h1>
+          <p>Kelola seluruh data kandang yang terdaftar</p>
         <% } else { %>
-            <p>No farms found.</p>
+          <h1>Kandang Saya</h1>
+          <p>Kelola farm dan hewan kurban milikmu</p>
         <% } %>
-    </body>
+      </div>
+      <a href="/farms/add" class="btn-primary">+ Tambah Kandang</a>
+    </div>
+
+    <% if (typeof farms !== 'undefined' && farms && farms.length > 0) { %>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+        <% farms.forEach(farm => { %>
+          <div class="card" style="padding:24px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+              <div>
+                <div style="font-size:16px;font-weight:700;margin-bottom:4px"><%= farm.name %></div>
+                <div style="font-size:13px;color:var(--muted)">📍 <%= farm.location %></div>
+                <% if (typeof user !== 'undefined' && user && user.role === 'admin' && farm.User) { %>
+                  <div style="font-size:12px;color:var(--muted);margin-top:4px">👤 <%= farm.User.email %></div>
+                <% } %>
+              </div>
+              <span style="font-size:24px">🏡</span>
+            </div>
+            <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px"><%= farm.description %></p>
+            <div style="display:flex;gap:8px">
+              <a href="/farms/<%= farm.id %>/edit" class="btn-outline" style="flex:1;text-align:center;padding:7px;font-size:13px">✏️ Edit</a>
+              <form action="/farms/<%= farm.id %>/delete" method="POST" style="flex:1;margin:0">
+                <button type="submit" class="btn-danger" style="width:100%;padding:7px;font-size:13px" onclick="return confirm('Hapus kandang ini?')">🗑️ Hapus</button>
+              </form>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="empty-state">
+        <div class="empty-icon">🏡</div>
+        <p>Belum ada kandang terdaftar.</p>
+      </div>
+    <% } %>
+  </div>
+</body>
 </html>
