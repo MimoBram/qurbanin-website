@@ -51,11 +51,11 @@
 
           <!-- Tombol Pesan -->
           <% if (animal.status === 'tersedia') { %>
-            <% if (typeof user !== 'undefined' && user && user.role === 'buyer'|| user.role === 'pembeli') { %>
+            <% if (typeof user !== 'undefined' && user && (user.role === 'buyer' || user.role === 'pembeli')) { %>
               <form action="/orders" method="POST" style="margin:0">
                 <input type="hidden" name="animalId" value="<%= animal.id %>">
-                <button type="submit" class="btn-primary" style="width:100%;padding:13px;font-size:14px" onclick="return confirm('Pesan <%= animal.name %> seharga Rp <%= animal.price.toLocaleString('id-ID') %>?')">
-                  Pesan Sekarang →
+                <button type="submit" class="btn-primary" style="width:100%;padding:13px;font-size:14px"onclick="return confirm(`Pesan <%= animal.name %> seharga Rp <%= animal.price.toLocaleString('id-ID') %>?`)">
+                  Pesan
                 </button>
               </form>
             <% } else if (typeof user === 'undefined' || !user) { %>
