@@ -1,2 +1,5 @@
+<<<<<<< HEAD
+
 # QurbanIn
+
 QurbanIn
